@@ -72,8 +72,26 @@
 (deftest preds-test
   (is (= 60.0 (preds [3.0 5.0 8.0] [1.0 3.0 2.0 5.0])))
 
-  (is (= [[38.0] [16.0] [15.0]] (preds [[3.0 5.0 8.0]
+  (is (= [38.0 16.0 15.0] (preds [[3.0 5.0 8.0]
                                         [4.0 1.0 3.0]
                                         [7.0 2.0 1.0]]
-                                       [1.0 1.0 2.0 3.0])))
-  )
+                                       [1.0 1.0 2.0 3.0]))))
+
+(deftest costs-test
+  (let [inputs [[3.0 5.0 8.0]
+                [4.0 1.0 3.0]
+                [7.0 2.0 1.0]]
+        weights [1.0 1.0 2.0 3.0]
+        labels [40.0 12.0 13.0]
+        expected [4.0 16.0 4.0]]
+
+    (is (= expected (costs inputs weights labels)))))
+
+(deftest cost-test
+  (let [inputs [[3.0 5.0 8.0]
+                [4.0 1.0 3.0]
+                [7.0 2.0 1.0]]
+        weights [1.0 1.0 2.0 3.0]
+        labels [40.0 12.0 13.0]]
+
+    (is (= 24.0 (cost inputs weights labels)))))

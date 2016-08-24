@@ -26,6 +26,16 @@
     (l-vec? m) (list 1 (count m))
     :else (list (count m) (count (first m)))))
 
+(defn to-line [v]
+  (if (l-vec? v)
+    v
+    (transpose v)))
+
+(defn to-col [v]
+  (if (c-vec? v)
+    v
+    (transpose v)))
+
 
 (defn mult [m1 m2]
   (cond
@@ -52,6 +62,15 @@
                        (reduce + (map * line col))))))
 
 (defn preds [inputs weights]
-  (if (l-vec? inputs)
-   (reduce + (map * (cons 1.0 inputs) weights))
-    (mult (map #(cons 1.0 %) inputs) (transpose weights))))
+  (to-line
+    (if (l-vec? inputs)
+      (reduce + (map * (cons 1.0 inputs) (to-line weights)))
+      (mult (map #(cons 1.0 %) inputs) (to-col weights)))))
+
+(defn costs [inputs weights labels]
+  (letfn [(sq [x] (* x x))]
+    (let [predictions (preds inputs weights)]
+      (map #(sq  (- %1 %2)) (to-line predictions) (to-line labels)))))
+
+(defn cost [inputs weights labels]
+  (reduce + (costs inputs weights labels)))
