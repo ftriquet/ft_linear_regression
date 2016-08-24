@@ -58,9 +58,7 @@
          [[1 100]
           [2 200]]) "Column by line")
 
-  (is (= [[14] [32]] (mult [[1 2 3] [4 5 6]] [[1] [2] [3]])) "Matrix by column vector")
-
-  )
+  (is (= [[14] [32]] (mult [[1 2 3] [4 5 6]] [[1] [2] [3]])) "Matrix by column vector"))
 
 (deftest transpose-test
   (is (= (transpose [[1 2 3 4]]) [[1] [2] [3] [4]]) "Line vector")
@@ -71,8 +69,11 @@
   (is (= (transpose [[1] [2] [3] [4]]) [1 2 3 4]) "Column vector"))
 
 
-(deftest cost-test
-  (is (= 60.0 (costs [3.0 5.0 8.0] [1.0 3.0 2.0 5.0])))
+(deftest preds-test
+  (is (= 60.0 (preds [3.0 5.0 8.0] [1.0 3.0 2.0 5.0])))
 
-  ;(is (= [] (costs [] [])))
+  (is (= [[38.0] [16.0] [15.0]] (preds [[3.0 5.0 8.0]
+                                        [4.0 1.0 3.0]
+                                        [7.0 2.0 1.0]]
+                                       [1.0 1.0 2.0 3.0])))
   )

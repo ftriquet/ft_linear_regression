@@ -51,7 +51,7 @@
                      (for [line m1 col (transpose m2)]
                        (reduce + (map * line col))))))
 
-(defn costs [inputs weights]
+(defn preds [inputs weights]
   (if (l-vec? inputs)
    (reduce + (map * (cons 1.0 inputs) weights))
-    (mult (map #(conj % 1.0) inputs) (transpose weights))))
+    (mult (map #(cons 1.0 %) inputs) (transpose weights))))
