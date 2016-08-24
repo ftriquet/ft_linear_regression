@@ -31,8 +31,7 @@
   (cond
     (number? m1) (if (number? m2)
                    (* m1 m2)
-                   (for [line m2]
-                     (mult m1 line)))
+                   (map #(mult m1 %) m2))
     (number? m2) (mult m2 m1)
     (not= (first (dims m2)) (second (dims m1))) (throw (IllegalArgumentException.
                                                          "Invalid matrix sizes"))
@@ -46,6 +45,13 @@
                   (let [tr (transpose m1)]
                     (for [i m2]
                       (transpose (map #(* i %) tr)))))
+    (c-vec? m2) (for [line m1]
+                  (list (mult line m2)))
     :else (partition (count m1)
                      (for [line m1 col (transpose m2)]
                        (reduce + (map * line col))))))
+
+(defn costs [inputs weights]
+  (if (l-vec? inputs)
+   (reduce + (map * (cons 1.0 inputs) weights))
+    (mult (map #(conj % 1.0) inputs) (transpose weights))))

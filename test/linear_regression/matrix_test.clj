@@ -24,8 +24,7 @@
 
 (deftest dims-test
   (is (= '(1 2) (dims [4 5])))
-  (is (= '(3 4) (dims [[1 2 3 4] [1 2 3 4] [1 2 3 4]])))
-  )
+  (is (= '(3 4) (dims [[1 2 3 4] [1 2 3 4] [1 2 3 4]]))))
 
 
 (deftest mult-test
@@ -59,6 +58,8 @@
          [[1 100]
           [2 200]]) "Column by line")
 
+  (is (= [[14] [32]] (mult [[1 2 3] [4 5 6]] [[1] [2] [3]])) "Matrix by column vector")
+
   )
 
 (deftest transpose-test
@@ -69,8 +70,9 @@
                                 [3 6]]) "Matrix")
   (is (= (transpose [[1] [2] [3] [4]]) [1 2 3 4]) "Column vector"))
 
-(comment
 
-  (deftest predict-test
-    (is (= 60 (predict [[1 3 2 5]] [[3 5 8]])))
-    ))
+(deftest cost-test
+  (is (= 60.0 (costs [3.0 5.0 8.0] [1.0 3.0 2.0 5.0])))
+
+  ;(is (= [] (costs [] [])))
+  )
