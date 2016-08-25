@@ -85,7 +85,7 @@
         labels [40.0 12.0 13.0]
         expected [4.0 16.0 4.0]]
 
-    (is (= expected (costs inputs weights labels)))))
+    (is (= expected (costs inputs weights labels #(* % %))))))
 
 (deftest cost-test
   (let [inputs [[3.0 5.0 8.0]
@@ -94,4 +94,4 @@
         weights [1.0 1.0 2.0 3.0]
         labels [40.0 12.0 13.0]]
 
-    (is (= 24.0 (cost inputs weights labels)))))
+    (is (= 24.0 (cost inputs weights labels #(* % %))))))

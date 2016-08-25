@@ -67,10 +67,9 @@
       (reduce + (map * (cons 1.0 inputs) (to-line weights)))
       (mult (map #(cons 1.0 %) inputs) (to-col weights)))))
 
-(defn costs [inputs weights labels]
-  (letfn [(sq [x] (* x x))]
-    (let [predictions (preds inputs weights)]
-      (map #(sq  (- %1 %2)) (to-line predictions) (to-line labels)))))
+(defn costs [inputs weights labels f]
+  (let [predictions (preds inputs weights)]
+    (map #(f (- %1 %2)) (to-line predictions) (to-line labels))))
 
-(defn cost [inputs weights labels]
-  (reduce + (costs inputs weights labels)))
+(defn cost [inputs weights labels f]
+  (reduce + (costs inputs weights labels f)))
