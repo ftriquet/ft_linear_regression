@@ -32,11 +32,19 @@
                  (csv/write-csv)
                  (spit "resources/thetas.csv"))
             (when (= 2 (cols (:X results)))
-              (q/defsketch linear-regression
-                :title "Linear Regression"
-                :size [800 800]
-                :setup (init-draw results)
-                :draw draw-result
-                :update upd
-                :middleware [m/fun-mode])))
+              (if (some #(= "--animation" %) args)
+                (q/defsketch linear-regression
+                  :title "Linear Regression"
+                  :size [800 800]
+                  :setup (init-st {:X inputs :labels labels})
+                  :draw draw-result
+                  :update update-state
+                  :middleware [m/fun-mode])
+                (q/defsketch linear-regression
+                  :title "Linear Regression"
+                  :size [800 800]
+                  :setup (init-draw results)
+                  :draw draw-result
+                  :update upd
+                  :middleware [m/fun-mode]))))
           (println "Invalid csv file"))))))

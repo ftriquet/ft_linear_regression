@@ -102,3 +102,22 @@
              :min minsX
              :max maxsX})
           (recur new-theta err))))))
+
+
+(defn init-st [{X :X labels :labels :as state}]
+  (fn []
+    (let [[minsX maxsX] (get-ext X)]
+      (q/frame-rate 60)
+      (q/background 240)
+      {:X (add-bias-feature (scale X))
+       :min minsX
+       :max maxsX
+       :theta (zeros 2)
+       :labels labels})))
+
+
+(defn update-state [{X :X theta :theta labels :labels :as state}]
+  (let [d-theta (mult (/ 0.1 (double (lines X)))
+                      (mult (to-line (compute-costs X theta labels)) X))
+        new-theta (sub theta d-theta)]
+    (assoc state :theta new-theta)))
