@@ -18,11 +18,3 @@
           [1.0 1.0 0.6 1.0]]))
 
   )
-
-(deftest new-weights-test
-  (let [inputs [[1 2 3 4] [1 6 7 8] [1 9 0 1]]
-        weights [1 1 1 1]
-        labels [8 15 6]]
-    (println (new-weights inputs weights labels 0.01 #(* % %))))
-  )
-
