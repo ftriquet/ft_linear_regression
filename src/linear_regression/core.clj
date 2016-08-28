@@ -80,44 +80,8 @@
 (defn -main [& args]
   (let [opts (cli/parse-opts args cli-options)
         options (:options opts)]
-    (if (:errors opts) (println (:summary opts))
+    (if (:errors opts) (doseq [x (list "Usage: " (:summary opts))] (println x))
       (cond
         (:train options) (train-theta options)
         (:predict options) (predict)
         :else (println "Invalid arguments")))))
-
-(comment
-
-  (defn -main
-    "I don't do a whole lot ... yet."
-    [& args]
-    (let [file (if (or (nil? (last args)) (= (last args) "--animation")) "resources/data.csv" (last args))
-          file-content (try (slurp file) (catch Exception e nil))]
-      (if (nil? file-content)
-        (println "Invalid argument")
-        (let [csv-data (csv/parse-csv file-content)
-              columns (first csv-data)
-              data (rest csv-data)]
-          (if (check-data data)
-            (let [[inputs labels] (format-data data)
-                  results (train-model inputs labels 0.1)]
-              (->> (:csv-data results)
-                   (csv/write-csv)
-                   (spit "resources/thetas.csv"))
-              (when (= 2 (cols (:X results)))
-                (if (some #(= "--animation" %) args)
-                  (q/defsketch linear-regression
-                    :title "Linear Regression"
-                    :size [800 800]
-                    :setup (init-st {:X inputs :labels labels})
-                    :draw draw-result
-                    :update update-state
-                    :middleware [m/fun-mode])
-                  (q/defsketch linear-regression
-                    :title "Linear Regression"
-                    :size [800 800]
-                    :setup (init-draw results)
-                    :draw draw-result
-                    :update upd
-                    :middleware [m/fun-mode]))))
-            (println "Invalid csv file")))))))

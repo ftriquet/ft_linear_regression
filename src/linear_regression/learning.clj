@@ -26,14 +26,6 @@
   (f-scale inputs (partial apply min)))
 
 
-(defn draw-error [{X :X thetas :thetas errors :errors}]
-  (doseq [[i e] errors]
-    (when (> e 0)
-      (q/point i (- 800 (int (/ (* 700 e)  (apply max (map second errors))))))
-      (q/point (inc i) (- 800 (int (/ (* 700 e)  (apply max (map second errors))))))
-      (q/point i (inc (- 800 (int (/ (* 700 e)  (apply max (map second errors)))))))
-      (q/point (inc i) (inc (- 800 (int (/ (* 700 e)  (apply max (map second errors))))))))))
-
 (defn draw-points [{X :X labels :labels}]
   (q/background 255)
   (doseq [[x [y]] (partition 2 (interleave (map second X) labels))]
