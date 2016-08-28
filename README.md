@@ -1,36 +1,33 @@
 # linear-regression
 
-FIXME: description
+Clojure linear regression implementation
 
 ## Installation
 
-Download from http://example.com/FIXME.
+```
+git clone https://github.com/ftriquet/ft_linear_regression.git
+```
+```
+lein uberjar
+```
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar linear-regression-0.1.0-standalone.jar [args]
+    $ java -jar target/uberjar/linear-regression-0.1.0-standalone.jar [args]
 
 ## Options
 
-FIXME: listing of options this app accepts.
+--predict: Prompt for values and outputs the predictions based on previously generated model
+
+--file FILE: specifies the dataset file. The file must be csv formated
+
+--train: Start training on a dataset specified by the FILE option
+
+--graph: Display the calculated graph if the regression has one parameter
+
+--animation: Display an animation of the graph fitting the dataset if the regression has one parameter
+
 
 ## Examples
 
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2016 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+    $ java -jar target/uberjar/linear-regression-0.1.0-standalone.jar --train --animation --file data.csv
