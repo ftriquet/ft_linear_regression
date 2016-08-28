@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [clojure-csv/clojure-csv "2.0.1"]
+                 [org.clojure/tools.cli "0.3.5"]
                  [quil "2.4.0"]]
   :main ^:skip-aot linear-regression.core
   :target-path "target/%s"
