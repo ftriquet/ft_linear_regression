@@ -95,7 +95,7 @@
       (mult inputs (to-col weights)))))
 
 (defn abs [x]
-  (if (< 0 x) (- x) x))
+  (if (> 0 x) (- x) x))
 
 (defn costs [inputs weights labels f]
   (let [predictions (preds inputs weights)]
