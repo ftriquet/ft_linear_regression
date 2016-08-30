@@ -68,7 +68,7 @@
                       (transpose (map #(* i %) tr)))))
     (c-vec? m2) (for [line m1]
                   (list (mult line m2)))
-    :else (partition (count m1)
+    :else (partition (cols m1)
                      (for [line m1 col (transpose m2)]
                        (reduce + (map * line col))))))
 (defn sub [m1 m2]
