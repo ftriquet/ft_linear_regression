@@ -83,7 +83,6 @@
                           (mult (to-line (compute-costs X theta labels)) X))
             new-theta (sub theta d-theta)
             err (cost X new-theta labels sq)]
-        (println "ERROR: " err)
         (if (< (abs (- error err)) 0.000001)
           (do
             (println "Done! Thetas: " new-theta)
