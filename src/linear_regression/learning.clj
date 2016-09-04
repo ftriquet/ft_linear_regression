@@ -76,7 +76,7 @@
   (let [X (add-bias-feature (scale inputs))
         weights (zeros (inc (cols inputs)))
         [minsX maxsX] (get-ext inputs)]
-    (println "Start computing, actual thetas: " weights)
+    (println "Start computing, actual weights: " weights)
     (loop [theta weights
            error (cost X theta labels sq)]
       (let [d-theta (mult (/ lrn-rate (double (lines X)))
@@ -85,7 +85,7 @@
             err (cost X new-theta labels sq)]
         (if (< (abs (- error err)) 0.000001)
           (do
-            (println "Done! Thetas: " new-theta)
+            (println "Done! weights: " new-theta)
             {:csv-data [["mins" "maxs" "theta"]
                         [(pr-str minsX) (pr-str maxsX) (pr-str new-theta)]]
              :X X
